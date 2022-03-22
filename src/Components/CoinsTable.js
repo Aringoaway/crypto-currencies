@@ -34,7 +34,7 @@ const CoinsTable = () => {
     //     // fetchData();
     // }, );
 
-    useEffect(() => {
+    React.useEffect(() => {
         async function fetchData() {
             setLoading(true)
             const coinData = await axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d')
@@ -67,11 +67,11 @@ const CoinsTable = () => {
             <Typography variant="h4" style={{margin: 18}}>
                 Cryptocurrency
             </Typography>
-            <TextField label="Search cryprocurrency"
-                       variant="filled"
-                       style={{marginBottom: 20, width: "100%",backgroundColor: "#fff"}}
-                       onChange={(e)=> setSearch(e.target.value)}
-            ></TextField>
+            {/*<TextField label="Search cryprocurrency"*/}
+            {/*           variant="filled"*/}
+            {/*           style={{marginBottom: 20, width: "100%",backgroundColor: "#fff"}}*/}
+            {/*           onChange={(e)=> setSearch(e.target.value)}*/}
+            {/*></TextField>*/}
             <TableContainer>
                 <Table>
                     <TableHead style={{backgroundColor: '#fff'}}>
@@ -93,7 +93,7 @@ const CoinsTable = () => {
                     </TableHead>
 
                     <TableBody>
-                        {handleSearch()
+                        {coins
                             .slice((page-1) * 10, (page-1) * 10 + 10)
                             .map((row) => {
                             const profit24h = row.price_change_percentage_24h > 0;
@@ -188,7 +188,8 @@ const CoinsTable = () => {
                     color: "#fff"
             }}
                 classes={{ul: classes.pagination}}
-            count={(handleSearch()?.length/10).toFixed(0)}
+            // count={(handleSearch()?.length/10).toFixed(0)}
+                count={10}
                 onChange={(_, value) => {
                     setPage(value);
                     window.scroll(0, 450)
