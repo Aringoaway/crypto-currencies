@@ -41,7 +41,7 @@ const CoinsTable = () => {
             setCoins(coinData.data)
             setLoading(false)
         }
-        // fetchData();
+        fetchData();
         // console.log(coins)
     }, );
 
@@ -67,11 +67,6 @@ const CoinsTable = () => {
             <Typography variant="h4" style={{margin: 18}}>
                 Cryptocurrency
             </Typography>
-            {/*<TextField label="Search cryprocurrency"*/}
-            {/*           variant="filled"*/}
-            {/*           style={{marginBottom: 20, width: "100%",backgroundColor: "#fff"}}*/}
-            {/*           onChange={(e)=> setSearch(e.target.value)}*/}
-            {/*></TextField>*/}
             <TableContainer>
                 <Table>
                     <TableHead style={{backgroundColor: '#fff'}}>
@@ -81,7 +76,6 @@ const CoinsTable = () => {
                                     style={{
                                         color: "black",
                                         fontWeight: "700",
-                                        fontFamily: "Montserrat",
                                     }}
                                     key={head}
                                     align={head === "Coin" ? "" : "right"}
@@ -188,7 +182,6 @@ const CoinsTable = () => {
                     color: "#fff"
             }}
                 classes={{ul: classes.pagination}}
-            // count={(handleSearch()?.length/10).toFixed(0)}
                 count={10}
                 onChange={(_, value) => {
                     setPage(value);

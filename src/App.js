@@ -9,7 +9,7 @@ function App() {
 
     const useStyles = makeStyles(() => ({
         App: {
-            backgroundImage: "linear-gradient(to left, #8a64e1, #7352d1, #5b40c2, #412eb2, #1d1da3);",
+            backgroundImage: "linear-gradient(to right top, #520e59, #470c57, #3b0b54, #2f0a51, #21094e);",
             color: "#fff",
             minHeight: "100vh",
         }
@@ -22,7 +22,7 @@ function App() {
           <Header/>
           <Routes>
               <Route exact path="/" element={<Home/>}></Route>
-              <Route path="/coin/:id" element={<AboutCoin/>}></Route>
+              <Route path="/coins/:id" element={<AboutCoin/>}></Route>
           </Routes>
       </div>
   );

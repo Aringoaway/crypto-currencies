@@ -4,11 +4,15 @@ import axios from "axios";
 import {SingleCoin} from "../config/api";
 import {makeStyles} from "@material-ui/core/styles";
 import CoinInfo from "../Components/CoinInfo";
-import {Typography} from "@material-ui/core";
+import {LinearProgress, List, Typography} from "@material-ui/core";
 
 const AboutCoin = () => {
     const { id } = useParams();
     const [coin, setCoin] = useState();
+
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     const fetchCoin = async () => {
         const { data } = await axios.get(SingleCoin(id));
@@ -44,10 +48,26 @@ const AboutCoin = () => {
         heading: {
             fontWeight: 700,
             marginBottom: 20
+        },
+        marketData: {
+            alignSelf: "start",
+            padding: 25,
+            paddingTop: 10,
+            width: "100%",
+            [theme.breakpoints.down("sm")]: {
+                flexDirection: "column",
+                alignItems: "center",
+            },
+            [theme.breakpoints.down("xs")]: {
+                alignItems: "start",
+            },
         }
     }))
 
     const classes = useStyles();
+
+
+    if (!coin) return <LinearProgress style={{backgroundColor: "#fff"}}/>
 
 
     return (
@@ -62,6 +82,104 @@ const AboutCoin = () => {
                 <Typography variant="h4" className={classes.heading}>
                     {coin?.name}
                 </Typography>
+                <div className={classes.marketData}>
+
+                    <span style={{display: "flex", justifyContent: "space-between", width: "90%"}}>
+                        <Typography variant="h6" className={classes.heading}>
+                            Symbol:
+                        </Typography>
+
+                        <Typography variant="h5">
+                            {coin?.symbol}
+                        </Typography>
+                    </span>
+
+                    <span style={{display: "flex", justifyContent: "space-between", width: "90%"}}>
+                        <Typography variant="h6" className={classes.heading}>
+                            Genesis date:
+                        </Typography>
+
+                        <Typography variant="h5">
+                            {coin?.genesis_date}
+                        </Typography>
+                    </span>
+
+                    <span style={{display: "flex", justifyContent: "space-between", width: "90%"}}>
+                        <Typography variant="h6" className={classes.heading}>
+                            Market rank:
+                        </Typography>
+
+                        <Typography variant="h5">
+                            {coin?.market_cap_rank}
+                        </Typography>
+                    </span>
+
+                    <span style={{display: "flex", justifyContent: "space-between", width: "90%"}}>
+                        <Typography variant="h6" className={classes.heading}>
+                            Circulating supply:
+                        </Typography>
+
+                        <Typography variant="h5">
+                            {coin?.market_data.circulating_supply.toFixed()}
+                        </Typography>
+                    </span>
+
+                    <span style={{display: "flex", justifyContent: "space-between", width: "90%"}}>
+                        <Typography variant="h6" className={classes.heading}>
+                            Market cap:
+                        </Typography>
+
+                        <Typography variant="h5">
+                            {" "}
+                            ${numberWithCommas(coin?.market_data.market_cap.usd)}
+                        </Typography>
+                    </span>
+
+                    <span style={{display: "flex", justifyContent: "space-between", width: "90%"}}>
+                        <Typography variant="h6" className={classes.heading}>
+                            Currnet price:
+                        </Typography>
+
+                        <Typography variant="h5">
+                            {" "}
+                            ${numberWithCommas(coin?.market_data.current_price.usd.toFixed())}
+                        </Typography>
+                    </span>
+
+                    <span style={{display: "flex", justifyContent: "space-between", width: "90%"}}>
+                        <Typography variant="h6" className={classes.heading}>
+                            All time hign:
+                        </Typography>
+
+                        <Typography variant="h5">
+                            {" "}
+                            ${numberWithCommas(coin?.market_data.ath.usd.toFixed())}
+                        </Typography>
+                    </span>
+
+                    <span style={{display: "flex", justifyContent: "space-between", width: "90%"}}>
+                        <Typography variant="h6" className={classes.heading}>
+                            24h change:
+                        </Typography>
+
+                        <Typography variant="h5">
+                            ${numberWithCommas(coin?.market_data.market_cap_change_percentage_24h.toString().slice(0, -4))}
+                        </Typography>
+                    </span>
+
+                    <span style={{display: "flex", justifyContent: "space-between", width: "90%"}}>
+                        <Typography variant="h6" className={classes.heading}>
+                            7d change:
+                        </Typography>
+
+                        <Typography variant="h5">
+                            {" "}
+                            ${numberWithCommas(coin?.market_data.price_change_percentage_7d.toString().slice(0, -4))}
+                        </Typography>
+                    </span>
+
+                </div>
+
             </div>
 
         {/*    chart    */}

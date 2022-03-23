@@ -4,7 +4,6 @@ import CoinsTable from "../Components/CoinsTable";
 const Home = () => {
     return (
         <>
-
             <CoinsTable/>
         </>
     )
